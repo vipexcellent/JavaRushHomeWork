@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.class
+src/JavaRushPlugin.properties
+src/DO NOT READ.txt
+out/production/JavaRushHomeWork/JavaRushPlugin.properties
+.idea/*
