@@ -1,5 +1,9 @@
 package com.javarush.test.level17.lesson10.home09;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +23,36 @@ public class Solution {
     public static List<String> allLines = new ArrayList<String>();
     public static List<String> forRemoveLines = new ArrayList<String>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(reader.readLine()));
+        BufferedReader bufferedReader2 = new BufferedReader(new FileReader(reader.readLine()));
+
+        String line = "";
+        while ((line = bufferedReader1.readLine()) != null){
+            allLines.add(line);
+        }
+
+        while ((line = bufferedReader2.readLine()) != null){
+            forRemoveLines.add(line);
+        }
+
+        new Solution().joinData();
+
+        reader.close();
+        bufferedReader1.close();
+        bufferedReader2.close();
     }
 
     public void joinData () throws CorruptedDataException {
-
+        if (allLines.containsAll(forRemoveLines))
+        {
+            allLines.removeAll(forRemoveLines);
+        } else {
+            allLines.clear();
+            throw new CorruptedDataException();
+        }
     }
 }
