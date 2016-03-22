@@ -22,9 +22,61 @@ obj name
 double 3.14
 */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Solution {
-    public static void main(String[] args) {
-        //add your code here
+
+    public static void main(String[] args) throws IOException{
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String url = reader.readLine();
+
+        int index = url.indexOf("?") + 1;
+        String sub = url.substring(index);
+
+        List<String> list = new ArrayList<String>();
+        List<String> alertList = new ArrayList<String>();
+
+        String[] strings = sub.split("&");
+
+        for (String s : strings)
+        {
+            if (s.contains("="))
+            {
+                String[] strs = s.split("=");
+                String objAlert = strs[0];
+
+                list.add(objAlert);
+
+                if (objAlert.equals("obj"))
+                    alertList.add(strs[1]);
+            } else
+                list.add(s);
+
+        }
+        for (String s : list)
+        {
+            System.out.print(s + " ");
+        }
+
+        System.out.println();
+
+        for (String s : alertList)
+        {
+            try
+            {
+                alert(Double.parseDouble(s));
+            }
+            catch (Exception e)
+            {
+                alert(s);
+            }
+        }
+
     }
 
     public static void alert(double value) {
