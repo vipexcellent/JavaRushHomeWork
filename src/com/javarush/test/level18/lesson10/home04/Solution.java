@@ -9,27 +9,34 @@ package com.javarush.test.level18.lesson10.home04;
 import java.io.*;
 
 public class Solution {
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) throws IOException
+    {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String firstFile = reader.readLine();
+        String fileName1 = reader.readLine();
+        String fileName2 = reader.readLine();
 
-        FileInputStream fileInputStream1 = new FileInputStream(firstFile);
-        FileInputStream fileInputStream2 = new FileInputStream(reader.readLine());
-
-        FileOutputStream fileOutputStream = new FileOutputStream(firstFile);
-
-        byte[] buffer = new byte[fileInputStream1.available()];
-
-        /*while (fileInputStream.available() > 0)
-        {
-            int length = fileInputStream.read(buffer);
-            fileOutputStream.write(buffer, 0 , length);
-        }
-
-        fileInputStream.close();*/
-        fileOutputStream.close();
         reader.close();
+
+        FileInputStream fileInputStream1 = new FileInputStream(fileName1);
+        FileInputStream fileInputStream2 = new FileInputStream(fileName2);
+
+        byte[] buffer1 = new byte[fileInputStream1.available()];
+        byte[] buffer2 = new byte[fileInputStream2.available()];
+
+        fileInputStream1.read(buffer1);
+        fileInputStream2.read(buffer2);
+
+        fileInputStream1.close();
+        fileInputStream2.close();
+
+        FileOutputStream fileOutputStream1 = new FileOutputStream(fileName1);
+        fileOutputStream1.write(buffer2);
+        fileOutputStream1.close();
+
+        FileOutputStream fileOutputStream11 = new FileOutputStream(fileName1, true);
+        fileOutputStream11.write(buffer1);
+        fileOutputStream11.close();
+
     }
 }
