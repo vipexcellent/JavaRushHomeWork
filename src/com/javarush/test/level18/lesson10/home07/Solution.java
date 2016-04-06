@@ -17,17 +17,34 @@ quantity - количество, int
 Информация по каждому товару хранится в отдельной строке
 */
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Solution {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc = new Scanner(System.in);
+        String fileName = sc.nextLine();
+        sc.close();
 
-        FileReader fileReader = new FileReader()
+        try {
+            Scanner in = new Scanner(new FileInputStream(fileName));
+            in.useLocale(Locale.ENGLISH);
 
+            String s = null;
+            int idToFind = Integer.parseInt(args[0]);
+            while (in.hasNext()) {
+                s = in.nextLine();
+                String strId = s.substring(0, s.indexOf(' '));
+                if ((Integer.parseInt(strId)) == idToFind) {
+                    System.out.println(s);
+                }
+            }
+
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
