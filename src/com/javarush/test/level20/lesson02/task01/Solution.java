@@ -17,7 +17,7 @@ public class Solution {
         //вы можете найти your_file_name.tmp в папке TMP или исправьте outputStream/inputStream в соответствии с путем к вашему реальному файлу
         try {
 
-            File your_file_name = File.createTempFile("your_file_name", null);
+            File your_file_name = File.createTempFile("d:\\1.tmp", null);
             OutputStream outputStream = new FileOutputStream(your_file_name);
             InputStream inputStream = new FileInputStream(your_file_name);
 
@@ -56,10 +56,39 @@ public class Solution {
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            PrintWriter writer = new PrintWriter(outputStream);
+
+            String isHumanName = (this.name != null) ? "yes" : "no";
+            writer.println(isHumanName);
+
+            if ("yes".equals(isHumanName)) {
+                writer.println(this.name);
+
+                if (!assets.isEmpty()) {
+                    for (Asset asset : this.assets) {
+                        writer.println(asset.getName());
+                    }
+                }
+            }
+            writer.close();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String isHumanName = reader.readLine();
+
+            if ("yes".equals(isHumanName)) {
+                this.name = reader.readLine();
+                String assetName;
+
+                while ((assetName = reader.readLine()) != null) {
+                    this.assets.add(new Asset(assetName));
+                }
+            }
+
+            reader.close();
         }
     }
 }
